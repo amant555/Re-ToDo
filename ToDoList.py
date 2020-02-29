@@ -1,13 +1,12 @@
 import os
 import sys
 
-from utility_functions import add_task, save_to_file, mark_as_complete
+from utility_functions import add_task, save_to_file, mark_as_complete, load_session
 
 
 class ToDoList:
     def __init__(self, formatter):
-        self.incomplete_tasks = []
-        self.completed_tasks = []
+        self.incomplete_tasks, self.completed_tasks = load_session()
         self.formatter = formatter
 
     def add_task(self):

@@ -35,6 +35,7 @@ Incomplete Tasks:
         with patch('sys.stdout', new=StringIO()) as fake_out:
             main()
         self.assertEqual(expected_output, fake_out.getvalue())
+        os.remove("dump.pkl")
 
     @patch('builtins.input', side_effect=[1, "Complete the assignment", "\n", 1, "Meet Ema at 7", "\n", 3, 1, 2, 0])
     def testing_console_for_two_task_and_marking_one_as_complete_then_viewing_it(self, mock_input):
@@ -84,6 +85,7 @@ Complete Tasks:
         with patch('sys.stdout', new=StringIO()) as fake_out:
             main()
         self.assertEqual(expected_output, fake_out.getvalue())
+        os.remove("dump.pkl")
 
     @patch('builtins.input', side_effect=[1, "Complete the assignment", "\n", 1, "Meet Ema at 7", "\n", 3, 1, 2, 4, 0])
     def testing_console_for_two_task_and_marking_one_as_complete_then_saving_it_to_file(self, mock_input):
@@ -97,6 +99,55 @@ Complete Tasks:
         self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7\nComplete Tasks:\n1. Complete the assignment\n",
                          all_tasks)
         os.remove(file_path)
+        os.remove("dump.pkl")
+
+    @patch('builtins.input', side_effect=[1, "Complete the assignment", "\n", 2, 0, 2, 0])
+    def testing_console_for_reloading_session(self, mock_input):
+        expected_output = '''
+    0. Exit
+    1. Add task
+    2. View task
+    3. Mark a task as complete
+    4. Save list to file
+    
+
+    0. Exit
+    1. Add task
+    2. View task
+    3. Mark a task as complete
+    4. Save list to file
+    
+Incomplete Tasks:
+1. Complete the assignment
+
+    0. Exit
+    1. Add task
+    2. View task
+    3. Mark a task as complete
+    4. Save list to file
+    
+
+    0. Exit
+    1. Add task
+    2. View task
+    3. Mark a task as complete
+    4. Save list to file
+    
+Incomplete Tasks:
+1. Complete the assignment
+
+    0. Exit
+    1. Add task
+    2. View task
+    3. Mark a task as complete
+    4. Save list to file
+    
+'''
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            main()
+            main()
+        self.assertEqual(expected_output, fake_out.getvalue())
+        os.remove("dump.pkl")
 
 
 if __name__ == '__main__':

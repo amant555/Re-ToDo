@@ -1,3 +1,4 @@
+import pickle
 import sys
 from typing import List
 
@@ -33,3 +34,15 @@ def mark_as_complete(target_list):
     else:
         target_list.completed_tasks.append(target_list.incomplete_tasks[task_number - 1])
         del target_list.incomplete_tasks[task_number - 1]
+
+
+def load_session():
+    try:
+        with open("dump.pkl", 'rb') as dump_handler:
+            data = pickle.load(dump_handler)
+        completed_tasks = data["completed_tasks"]
+        incomplete_tasks = data["incomplete_tasks"]
+    except FileNotFoundError:
+        completed_tasks = []
+        incomplete_tasks = []
+    return incomplete_tasks, completed_tasks

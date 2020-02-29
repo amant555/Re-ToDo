@@ -1,5 +1,6 @@
 import os
 import sys
+import pickle
 from formatter_todo import console_format
 from ToDoList import ToDoList
 
@@ -10,6 +11,13 @@ save_file = path + "/MyTasks.txt"
 
 def invalid():
     print("Invalid option")
+
+
+def save_session():
+    data = {"completed_tasks": todo.completed_tasks,
+            "incomplete_tasks": todo.incomplete_tasks}
+    with open("dump.pkl", 'wb') as dump_handler:
+        pickle.dump(data, dump_handler, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def view_tasks():
@@ -45,6 +53,7 @@ def main():
             print(options)
             option = int(input("Enter option to proceed: "))
             if option == 0:
+                save_session()
                 break
             task_options(option)
         except ValueError:
