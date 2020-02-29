@@ -19,10 +19,10 @@ def console_format(todo) -> str:
     if incomplete_task_length == 0 and complete_task_length == 0:
         content = "Your TODO list is empty!"
     elif incomplete_task_length > 0 and complete_task_length == 0:
-        content = text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks)
+        content = text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks) + "\n"
     elif complete_task_length > 0 and incomplete_task_length == 0:
-        content = text_complete + numeric_listing_of_tasks(todo.completed_tasks)
+        content = text_complete + numeric_listing_of_tasks(todo.completed_tasks) + "\n"
     elif complete_task_length > 0 and incomplete_task_length > 0:
         content = text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks)
-        content += "\n" + text_complete + numeric_listing_of_tasks(todo.completed_tasks)
+        content += "\n" + text_complete + numeric_listing_of_tasks(todo.completed_tasks) + "\n"
     return content

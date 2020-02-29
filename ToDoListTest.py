@@ -58,7 +58,7 @@ class ToDoListTest(unittest.TestCase):
         todo.add_task()
         with patch('sys.stdout', new=StringIO()) as fake_output:
             todo.view_and_save_tasks(sys.stdout)
-        self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", fake_output.getvalue())
+        self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7\n", fake_output.getvalue())
 
     # Save Task To a file
 
@@ -72,7 +72,7 @@ class ToDoListTest(unittest.TestCase):
         with open(file_path, "r") as file:
             content = file.readlines()
         all_tasks = ''.join([str(elem) for elem in content])
-        self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", all_tasks)
+        self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7\n", all_tasks)
         os.remove(file_path)
 
     # Mark a task as complete
@@ -85,7 +85,7 @@ class ToDoListTest(unittest.TestCase):
         todo.mark_completed()
         with patch('sys.stdout', new=StringIO()) as fake_out:
             todo.view_and_save_tasks(sys.stdout)
-            self.assertEqual("Incomplete Tasks:\n1. Have Lunch at 1:00pm\nComplete Tasks:\n1. Meet Ema at 7:00",
+            self.assertEqual("Incomplete Tasks:\n1. Have Lunch at 1:00pm\nComplete Tasks:\n1. Meet Ema at 7:00\n",
                              fake_out.getvalue())
 
     @patch('builtins.input',
@@ -101,7 +101,7 @@ class ToDoListTest(unittest.TestCase):
             todo.mark_completed()
             self.assertEqual(
                 "Incomplete Tasks:\n1. Have Lunch at 1:00pm\n2. Meet Ema at 7:00\n3. Do your assignments\n4. "
-                "Sleep\nThe task you're trying to mark is not present in the list",
+                "Sleep\n\nThe task you're trying to mark is not present in the list",
                 fake_out.getvalue())
 
     @patch('builtins.input',
@@ -118,7 +118,7 @@ class ToDoListTest(unittest.TestCase):
             todo.mark_completed()
             self.assertEqual(
                 "Incomplete Tasks:\n1. Have Lunch at 1:00pm\n2. Meet Ema at 7:00"
-                "\n3. Do your assignments\n4. Sleep\nThe task you're trying to mark is not present in the list",
+                "\n3. Do your assignments\n4. Sleep\n\nThe task you're trying to mark is not present in the list",
                 fake_out.getvalue())
 
     def test_when_TODO_list_is_empty_then_to_mark_a_task_as_complete_is_not_allowed(self):
