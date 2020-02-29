@@ -1,3 +1,4 @@
+import os
 import sys
 
 from utility_functions import add_task, save_to_file
@@ -15,3 +16,9 @@ class ToDoList:
     def view_tasks(self):
         content = self.formatter(self)
         save_to_file(sys.stdout, content)
+
+    def save_task(self):
+        content = self.formatter(self)
+        path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        file_path = path + "/MyTasks.txt"
+        save_to_file(file_path, content)

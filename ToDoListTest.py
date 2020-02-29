@@ -1,3 +1,4 @@
+import os
 import unittest
 from io import StringIO
 from unittest.mock import patch
@@ -54,6 +55,21 @@ class ToDoListTest(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as fake_output:
             todo.view_tasks()
         self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", fake_output.getvalue())
+
+    # Save Task To a file
+
+    @patch('builtins.input', side_effect=["Meet Ema at 7", "\n\n\n"])
+    def test_when_saving_tasks_in_a_file(self, mock_input):
+        path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        file_path = path + "/MyTasks.txt"
+        todo = ToDoList(console_format)
+        todo.add_task()
+        todo.save_task()
+        with open(file_path, "r") as file:
+            content = file.readlines()
+        all_tasks = ''.join([str(elem) for elem in content])
+        self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", all_tasks)
+        os.remove(file_path)
 
 
 if __name__ == '__main__':
