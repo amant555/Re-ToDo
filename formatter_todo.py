@@ -12,7 +12,7 @@ def numeric_listing_of_tasks(task_list: List) -> str:
 
 def console_format(todo) -> str:
     content = ""
-    complete_task_length = len(todo.complete_tasks)
+    complete_task_length = len(todo.completed_tasks)
     incomplete_task_length = len(todo.incomplete_tasks)
     text_incomplete = "Incomplete Tasks:"
     text_complete = "Complete Tasks:"

@@ -71,6 +71,19 @@ class ToDoListTest(unittest.TestCase):
         self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", all_tasks)
         os.remove(file_path)
 
+    # Mark a task as complete
+
+    @patch('builtins.input', side_effect=["Have Lunch at 1:00pm", "\n", "Meet Ema at 7:00", "\n", 2])
+    def test_marking_a_task_as_complete_moves_it_to_the_complete_list(self, mock_input):
+        todo = ToDoList(console_format)
+        todo.add_task()
+        todo.add_task()
+        todo.mark_completed()
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            todo.view_tasks()
+            self.assertEqual("Incomplete Tasks:\n1. Have Lunch at 1:00pm\nComplete Tasks:\n1. Meet Ema at 7:00",
+                             fake_out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()
