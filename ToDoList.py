@@ -13,19 +13,13 @@ class ToDoList:
     def add_task(self):
         add_task(self.incomplete_tasks)
 
-    def view_tasks(self):
+    def view_and_save_tasks(self, file_name):
         content = self.formatter(self)
-        save_to_file(sys.stdout, content)
-
-    def save_task(self):
-        content = self.formatter(self)
-        path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
-        file_path = path + "/MyTasks.txt"
-        save_to_file(file_path, content)
+        save_to_file(file_name, content)
 
     def mark_completed(self):
         if len(self.incomplete_tasks):
-            self.view_tasks()
+            self.view_and_save_tasks(sys.stdout)
             mark_as_complete(self)
         else:
             message = "\nYour TODO list is empty!"

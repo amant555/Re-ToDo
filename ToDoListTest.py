@@ -1,9 +1,13 @@
 import os
 import unittest
+import sys
 from io import StringIO
 from unittest.mock import patch
 from ToDoList import ToDoList
 from formatter_todo import console_format
+
+path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+save_file = path + "/MyTasks.txt"
 
 
 class ToDoListTest(unittest.TestCase):
@@ -45,7 +49,7 @@ class ToDoListTest(unittest.TestCase):
     def test_viewing_empty_task(self):
         todo = ToDoList(console_format)
         with patch('sys.stdout', new=StringIO()) as fake_output:
-            todo.view_tasks()
+            todo.view_and_save_tasks(sys.stdout)
         self.assertEqual("Your TODO list is empty!", fake_output.getvalue())
 
     @patch('builtins.input', side_effect=["Meet Ema at 7", "\n\n\n"])
@@ -53,7 +57,7 @@ class ToDoListTest(unittest.TestCase):
         todo = ToDoList(console_format)
         todo.add_task()
         with patch('sys.stdout', new=StringIO()) as fake_output:
-            todo.view_tasks()
+            todo.view_and_save_tasks(sys.stdout)
         self.assertEqual("Incomplete Tasks:\n1. Meet Ema at 7", fake_output.getvalue())
 
     # Save Task To a file
@@ -64,7 +68,7 @@ class ToDoListTest(unittest.TestCase):
         file_path = path + "/MyTasks.txt"
         todo = ToDoList(console_format)
         todo.add_task()
-        todo.save_task()
+        todo.view_and_save_tasks(save_file)
         with open(file_path, "r") as file:
             content = file.readlines()
         all_tasks = ''.join([str(elem) for elem in content])
@@ -80,7 +84,7 @@ class ToDoListTest(unittest.TestCase):
         todo.add_task()
         todo.mark_completed()
         with patch('sys.stdout', new=StringIO()) as fake_out:
-            todo.view_tasks()
+            todo.view_and_save_tasks(sys.stdout)
             self.assertEqual("Incomplete Tasks:\n1. Have Lunch at 1:00pm\nComplete Tasks:\n1. Meet Ema at 7:00",
                              fake_out.getvalue())
 
