@@ -84,6 +84,45 @@ class ToDoListTest(unittest.TestCase):
             self.assertEqual("Incomplete Tasks:\n1. Have Lunch at 1:00pm\nComplete Tasks:\n1. Meet Ema at 7:00",
                              fake_out.getvalue())
 
+    @patch('builtins.input',
+           side_effect=["Have Lunch at 1:00pm", "\n", "Meet Ema at 7:00", "\n", "Do your assignments", "\n", "Sleep",
+                        "\n", 7])
+    def test_the_task_which_is_not_in_list_can_not_be_marked_as_completed(self, mock_input):
+        todo = ToDoList(console_format)
+        todo.add_task()
+        todo.add_task()
+        todo.add_task()
+        todo.add_task()
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            todo.mark_completed()
+            self.assertEqual(
+                "Incomplete Tasks:\n1. Have Lunch at 1:00pm\n2. Meet Ema at 7:00\n3. Do your assignments\n4. "
+                "Sleep\nThe task you're trying to mark is not present in the list",
+                fake_out.getvalue())
+
+    @patch('builtins.input',
+           side_effect=["Have Lunch at 1:00pm", "\n", "Meet Ema at 7:00", "\n", "Do your assignments", "\n", "Sleep",
+                        "\n", -1])
+    def test_when_the_task_number_is_negative_it_can_not_be_marked_as_completed(self, mock_input):
+        todo = ToDoList(console_format)
+        todo.add_task()
+        todo.add_task()
+        todo.add_task()
+        todo.add_task()
+
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            todo.mark_completed()
+            self.assertEqual(
+                "Incomplete Tasks:\n1. Have Lunch at 1:00pm\n2. Meet Ema at 7:00"
+                "\n3. Do your assignments\n4. Sleep\nThe task you're trying to mark is not present in the list",
+                fake_out.getvalue())
+
+    def test_when_TODO_list_is_empty_then_to_mark_a_task_as_complete_is_not_allowed(self):
+        todo = ToDoList(console_format)
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            todo.mark_completed()
+            self.assertEqual("\nYour TODO list is empty!", fake_out.getvalue())
+
 
 if __name__ == '__main__':
     unittest.main()

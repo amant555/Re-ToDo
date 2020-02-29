@@ -28,5 +28,5 @@ class ToDoList:
             self.view_tasks()
             mark_as_complete(self)
         else:
-            message = "Your TODO list is empty!"
+            message = "\nYour TODO list is empty!"
             save_to_file(sys.stdout, message)
