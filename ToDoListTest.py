@@ -64,8 +64,8 @@ class ToDoListTest(unittest.TestCase):
 
     @patch('builtins.input', side_effect=["Meet Ema at 7", "\n\n\n"])
     def test_when_saving_tasks_in_a_file(self, mock_input):
-        path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
-        file_path = path + "/MyTasks.txt"
+        path_desktop = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        file_path = path_desktop + "/MyTasks.txt"
         todo = ToDoList(console_format)
         todo.add_task()
         todo.view_and_save_tasks(save_file)
