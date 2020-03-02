@@ -16,13 +16,10 @@ def console_format(todo) -> str:
     incomplete_task_length = len(todo.incomplete_tasks)
     text_incomplete = "Incomplete Tasks:"
     text_complete = "Complete Tasks:"
-    if incomplete_task_length == 0 and complete_task_length == 0:
+    if incomplete_task_length > 0:
+        content += text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks) + "\n"
+    if complete_task_length > 0:
+        content += text_complete + numeric_listing_of_tasks(todo.completed_tasks) + "\n"
+    if (incomplete_task_length + complete_task_length) == 0:
         content = "Your TODO list is empty!"
-    elif incomplete_task_length > 0 and complete_task_length == 0:
-        content = text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks) + "\n"
-    elif complete_task_length > 0 and incomplete_task_length == 0:
-        content = text_complete + numeric_listing_of_tasks(todo.completed_tasks) + "\n"
-    elif complete_task_length > 0 and incomplete_task_length > 0:
-        content = text_incomplete + numeric_listing_of_tasks(todo.incomplete_tasks)
-        content += "\n" + text_complete + numeric_listing_of_tasks(todo.completed_tasks) + "\n"
     return content
