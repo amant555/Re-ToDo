@@ -1,7 +1,7 @@
 import os
 import sys
 import pickle
-from formatter_todo import console_format
+from Formatter_ToDo import console_format
 from ToDoList import ToDoList
 
 todo = ToDoList(console_format)
