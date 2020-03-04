@@ -10,8 +10,8 @@ def accept_task() -> str:
     return task.strip()
 
 
-def add_task(target_list: List) -> str or None:
-    task = accept_task()
+def add_task(target_list: List, task: str) -> str or None:
+    task = task.strip()
     if task:
         target_list.append(task)
     else:

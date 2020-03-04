@@ -9,8 +9,8 @@ class ToDoList:
         self.incomplete_tasks, self.completed_tasks = load_session()
         self.formatter = formatter
 
-    def add_task(self):
-        add_task(self.incomplete_tasks)
+    def add_task(self, task):
+        add_task(self.incomplete_tasks, task)
 
     def view_and_save_tasks(self, file_name):
         content = self.formatter(self)

@@ -3,6 +3,7 @@ import sys
 import pickle
 from Formatter_ToDo import console_format
 from ToDoList import ToDoList
+from ToDo_Helper_Functions import accept_task
 
 todo = ToDoList(console_format)
 path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
@@ -11,6 +12,11 @@ save_file = path + "/MyTasks.txt"
 
 def invalid():
     print("Invalid option")
+
+
+def add_task():
+    task = accept_task()
+    todo.add_task(task)
 
 
 def save_session():
@@ -30,7 +36,7 @@ def save_task():
 
 def task_options(i):
     switcher = {
-        1: todo.add_task,
+        1: add_task,
         2: view_tasks,
         3: todo.mark_completed,
         4: save_task,
