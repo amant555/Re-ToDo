@@ -19,10 +19,10 @@ def add_task(target_list: List, task: str) -> str or None:
 
 
 def save_to_file(file_name: str or object, content: str) -> None:
-    try:
+    if type(file_name) == str:
         with open(file_name, 'w') as file:
             file.write(content)
-    except TypeError:
+    else:
         file_name.write(content)
 
 
