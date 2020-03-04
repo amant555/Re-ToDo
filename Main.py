@@ -6,7 +6,7 @@ from ToDoList import ToDoList
 from ToDo_Helper_Functions import accept_task
 
 todo = ToDoList(console_format)
-path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+path = "."  # os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
 save_file = path + "/MyTasks.txt"
 
 

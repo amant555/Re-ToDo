@@ -6,7 +6,7 @@ from unittest.mock import patch
 from ToDoList import ToDoList
 from Formatter_ToDo import console_format
 
-path = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+path = "."  # os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
 save_file = path + "/MyTasks.txt"
 
 

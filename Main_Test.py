@@ -91,7 +91,7 @@ Complete Tasks:
     def testing_console_for_two_task_and_marking_one_as_complete_then_saving_it_to_file(self, mock_input):
         with patch('sys.stdout', new=StringIO()) as fake_out:
             main()
-        path_desktop = os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
+        path_desktop = "."  # os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
         file_path = path_desktop + "/MyTasks.txt"
         with open(file_path, "r") as file:
             content = file.readlines()
