@@ -20,8 +20,10 @@ def add_task():
 
 
 def save_session():
-    data = {"completed_tasks": todo.completed_tasks,
-            "incomplete_tasks": todo.incomplete_tasks}
+    data = {
+        "completed_tasks": todo.completed_tasks,
+        "incomplete_tasks": todo.incomplete_tasks
+    }
     with open("dump.pkl", 'wb') as dump_handler:
         pickle.dump(data, dump_handler, protocol=pickle.HIGHEST_PROTOCOL)
 
