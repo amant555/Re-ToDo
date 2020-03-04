@@ -1,9 +1,9 @@
-import os
-import sys
 import pickle
-from Formatter_ToDo import console_format
+import sys
+
+from Format import console_format
+from ToDoHelperFunctions import accept_task
 from ToDoList import ToDoList
-from ToDo_Helper_Functions import accept_task
 
 todo = ToDoList(console_format)
 path = "."  # os.path.join(os.path.join(os.path.expanduser('~')), 'Desktop')
@@ -28,22 +28,27 @@ def save_session():
         pickle.dump(data, dump_handler, protocol=pickle.HIGHEST_PROTOCOL)
 
 
+def mark_completed():
+    task_number = int(input("Enter the task number of task to be marked as completed: "))
+    todo.mark_completed(task_number)
+
+
 def view_tasks():
-    todo.view_and_save_tasks(sys.stdout)
+    todo.write_tasks(sys.stdout)
 
 
 def save_task():
-    todo.view_and_save_tasks(save_file)
+    todo.write_tasks(save_file)
 
 
 def task_options(i):
-    switcher = {
+    actions = {
         1: add_task,
         2: view_tasks,
-        3: todo.mark_completed,
+        3: mark_completed,
         4: save_task,
     }
-    return switcher.get(i, invalid)()
+    return actions.get(i, invalid)()
 
 
 def main():

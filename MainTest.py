@@ -1,8 +1,9 @@
 import os
 import unittest
 from io import StringIO
-from Main import main
 from unittest.mock import patch
+
+from Main import main
 
 
 class Main_Test(unittest.TestCase):

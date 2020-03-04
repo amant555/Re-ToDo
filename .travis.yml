@@ -3,4 +3,4 @@ python:
   - "3.7"
 script:
   - python3 ToDoListTest.py
-  - python3 Main_Test.py
+  - python3 MainTest.py
